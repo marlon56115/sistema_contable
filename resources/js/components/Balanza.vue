@@ -56,7 +56,6 @@ export default {
                 year: this.fecha.substring(0, 4),
                 id: this.empresaSelect
             };
-            console.log(params);
             axios.get("/balanza", { params: params }).then(res => {
                 registros = res.data;
                 this.cuentas = registros;
