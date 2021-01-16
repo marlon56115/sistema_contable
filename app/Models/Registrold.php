@@ -14,7 +14,7 @@ class Registrold extends Model
         return $this->belongsTo('App\Models\Subcuenta'); //Pertenece a una categoría.
     }
     public function libro(){
-        return $this->belongsTo('App\Models\LibroDiario');
+        return $this->belongsTo('App\Models\LibroDiario','libro_diario_id');
     }
 
 

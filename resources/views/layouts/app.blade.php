@@ -65,7 +65,7 @@
                                 <router-link class="nav-link" to="/home/empresa">Empresa</router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('/balanza') }}">Balanza</a>
+                                <a class="nav-link" href="{{ route('balanza') }}">Balanza</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"

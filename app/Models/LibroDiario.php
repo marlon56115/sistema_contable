@@ -9,7 +9,8 @@ class LibroDiario extends Model
 {
     use HasFactory;
 
-    public function registroLibroDiario(){
+    public function registroLibroDiario()
+    {
         return $this->hasMany('App\Models\Registrold'); // Muchos a muchos
     }
 }

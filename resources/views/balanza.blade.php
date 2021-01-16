@@ -1,3 +1,4 @@
 @extends('layouts.app')
-@extends('content')
+@section('content')
+<balanza/>
 @endsection

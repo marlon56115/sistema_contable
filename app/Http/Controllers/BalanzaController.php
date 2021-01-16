@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registrold;
+use Illuminate\Database\Eloquent\Builder;
 
 class BalanzaController extends Controller
 {
@@ -14,12 +15,19 @@ class BalanzaController extends Controller
      */
     public function balanza(Request $request)
     {
-        $registros = Registrold::whereMonth('fecha', '=', $request->month)
-            ->whereYear('fecha', '=', $request->year)
-            ->join('libro_diario_id.empresa_id', '=', $request->id)
-            ->orderByDesc('subcuenta_id')
-            ->get();
-        return $registros;
+        if ($request->ajax()) {
+
+            $registros = Registrold::whereMonth('fecha', '=', $request->month)
+                ->whereYear('fecha', '=', $request->year)
+                ->whereHas('libro', function (Builder $query) use ($request) {
+                    $query->where('empresa_id', '=', $request->id);
+                })
+                ->orderByDesc('subcuenta_id')
+                ->get();
+            return $registros;
+        } else {
+            return view('balanza');
+        }
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +36,6 @@ class BalanzaController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**

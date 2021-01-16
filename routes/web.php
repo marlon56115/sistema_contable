@@ -44,4 +44,4 @@ Route::get('/registrosporlibro/{id}', [App\Http\Controllers\RegistroldController
 
 Route::get('/PDF/report1/{id?}', [App\Http\Controllers\PDFController::class, 'report1'])->middleware('auth');
 
-Route::get('/balanza', [App\Http\Controllers\BalanzaController::class, 'balanza'])->middleware('auth');
+Route::get('/balanza', [App\Http\Controllers\BalanzaController::class, 'balanza'])->name('balanza')->middleware('auth');
