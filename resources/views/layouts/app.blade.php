@@ -59,10 +59,7 @@
                         @else
 
                             <li class="nav-item">
-                                <router-link class="nav-link" to="/home">Libros</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link class="nav-link" to="/home/empresa">Empresa</router-link>
+                                <a class="nav-link" href="{{ route('home') }}">Libros</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('balanza') }}">Balanza</a>

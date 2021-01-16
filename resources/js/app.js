@@ -7,7 +7,7 @@ import storeData from "./store/index";
 Vue.use(Vuex);
 const store = new Vuex.Store(storeData);
 //support vue-router
-import VueRouter from "vue-router";
+/* import VueRouter from "vue-router";
 Vue.use(VueRouter);
 const routes = [
     {
@@ -24,7 +24,7 @@ const router = new VueRouter({
     routes: routes,
     mode: "history"
 });
-
+ */
 //support bootstrao-vue e icons
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
@@ -49,5 +49,5 @@ const app = new Vue({
     vuetify,
     el: "#app",
     store, //vuex
-    router //router
+    //router //router
 });

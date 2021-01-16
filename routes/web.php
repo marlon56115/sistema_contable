@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home/{error?}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home/{error?}', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::resource('/dashboard', App\Http\Controllers\DashboardController::class)->middleware('auth');
 Route::resource('/empresa', App\Http\Controllers\EmpresaController::class)->middleware('auth');
