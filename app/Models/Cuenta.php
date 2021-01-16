@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Cuenta extends Model
 {
     use HasFactory;
+    public function subcuentas()
+    {
+        return $this->hasMany('App\Models\Subcuenta');
+    }
 }
