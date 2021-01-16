@@ -22,6 +22,7 @@ class BalanzaController extends Controller
                 ->whereHas('libro', function (Builder $query) use ($request) {
                     $query->where('empresa_id', '=', $request->id);
                 })
+                ->with('subcuenta')
                 ->orderByDesc('subcuenta_id')
                 ->get();
             return $registros;

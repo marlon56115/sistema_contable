@@ -13,4 +13,7 @@ class Subcuenta extends Model
     {
         return $this->belongsTo('App\Models\Cuenta');
     }
+    public function registro(){
+        return $this->hasMany(Registrold::class);
+    }
 }
