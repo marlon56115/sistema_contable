@@ -11,6 +11,9 @@ class Subcuenta extends Model
 
     public function cuenta()
     {
-        return $this->hasOne('App\Models\Cuenta');
+        return $this->belongsTo('App\Models\Cuenta');
+    }
+    public function registro(){
+        return $this->hasMany(Registrold::class);
     }
 }

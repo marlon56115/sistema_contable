@@ -1,28 +1,32 @@
 <template>
     <div id="balanza">
-        <v-select
-            dense
-            v-model="empresaSelect"
-            :items="empresas"
-            item-text="nombre"
-            item-value="id"
-            label="Seleccione una empresa"
-            single-line
-        >
-            <template v-slot:item="{ item }">
-                {{ item.id }} {{ item.nombre }}
-            </template>
-            <template v-slot:selection="{ item }">
-                {{ item.id }} {{ item.nombre }}
-            </template>
-        </v-select>
-        <v-row justify="center">
-            <v-date-picker v-model="fecha" type="month"></v-date-picker>
+        <v-row>
+            <v-col>
+                <v-select
+                    dense
+                    v-model="empresaSelect"
+                    :items="empresas"
+                    item-text="nombre"
+                    item-value="id"
+                    label="Seleccione una empresa"
+                    single-line
+                >
+                    <template v-slot:item="{ item }">
+                        {{ item.id }} {{ item.nombre }}
+                    </template>
+                    <template v-slot:selection="{ item }">
+                        {{ item.id }} {{ item.nombre }}
+                    </template>
+                </v-select>
+                <v-date-picker v-model="fecha" type="month"></v-date-picker>
+                <v-btn @click="balanza">Obtener</v-btn>
+            </v-col>
+            <v-col>
+                {{ fecha }}
+                {{ empresaSelect }}
+                {{ cuentas }}
+            </v-col>
         </v-row>
-        <button @click="balanza">Obtener</button>
-        {{ fecha }}
-        {{ empresaSelect }}
-        {{ cuentas }}
     </div>
 </template>
 
@@ -58,7 +62,27 @@ export default {
             };
             axios.get("/balanza", { params: params }).then(res => {
                 registros = res.data;
-                this.cuentas = registros;
+                registros.forEach(registro => {
+                    if (
+                        this.cuentas.some(
+                            cuenta => cuenta.id == registro.subcuenta.id
+                        )
+                    ) {
+                        this.cuentas[this.cuentas.length - 1].debe =
+                            registro.debe +
+                            this.cuentas[this.cuentas.length - 1].debe;
+                        this.cuentas[this.cuentas.length - 1].haber =
+                            registro.haber +
+                            this.cuentas[this.cuentas.length - 1].haber;
+                    } else {
+                        this.cuentas.push({
+                            id: registro.subcuenta.id,
+                            cuenta: registro.subcuenta.nombre,
+                            debe: registro.debe,
+                            haber: registro.haber
+                        });
+                    }
+                });
             });
         }
     }

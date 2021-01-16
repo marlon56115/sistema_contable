@@ -11,7 +11,7 @@ class Registrold extends Model
 
     //un registro libro diario solo tiene una subcuenta
     public function subcuenta(){
-        return $this->belongsTo('App\Models\Subcuenta'); //Pertenece a una categoría.
+        return $this->belongsTo('App\Models\Subcuenta','subcuenta_id'); //Pertenece a una categoría.
     }
     public function libro(){
         return $this->belongsTo('App\Models\LibroDiario','libro_diario_id');
