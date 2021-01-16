@@ -20,6 +20,7 @@ requisitos para correr:
 Editar el archivo .env y cambiar las credenciales de MariaDB, luego ejecutar:
 ```bash
 npm install #instalamos las dependencias de npm
+composer update #instalamos las dependencias de php
 php artisan migrate --seed #creara la base de datos 
 php artisan serve #ejecutamos en el servidor
 npm run watch #para compilar js en tiempo real
