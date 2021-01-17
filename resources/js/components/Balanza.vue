@@ -157,10 +157,11 @@ export default {
                         registro.haber = registro.haber - registro.debe;
                         registro.debe = 0;
                         this.totalHaber = this.totalHaber + registro.haber;
-                    } else {
-                        this.cuentas.splice(index, 1);
                     }
                 });
+                this.cuentas = this.cuentas.filter(
+                    registro => registro.haber != registro.debe
+                );
             });
         }
     }
