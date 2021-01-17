@@ -151,11 +151,11 @@ export default {
                     if (registro.debe > registro.haber) {
                         registro.debe = registro.debe - registro.haber;
                         registro.haber = 0;
-                        this.totalDebe = registro.debe;
+                        this.totalDebe = this.totalDebe + registro.debe;
                     } else if (registro.debe < registro.haber) {
                         registro.haber = registro.haber - registro.debe;
                         registro.debe = 0;
-                        this.totalHaber = registro.haber;
+                        this.totalHaber = this.totalHaber + registro.haber;
                     } else {
                         this.cuentas.splice(index, 1);
                     }

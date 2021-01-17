@@ -23,7 +23,7 @@ class BalanzaController extends Controller
                     $query->where('empresa_id', '=', $request->id);
                 })
                 ->with('subcuenta')
-                ->orderByDesc('subcuenta_id')
+                ->orderBy('subcuenta_id','ASC')
                 ->get();
             return $registros;
         } else {
