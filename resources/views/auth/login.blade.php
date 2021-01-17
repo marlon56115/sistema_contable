@@ -53,9 +53,20 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Iniciar Sesion
-                                </button>
+                                <v-btn
+                                    color="blue"
+                                    class="ma-2 white--text"
+                                    type="submit"
+                                    style="text-transform: none !important; "
+                                    >
+                                    Iniciar Sesión
+                                    <v-icon
+                                        right
+                                        dark
+                                    >
+                                        mdi-login
+                                    </v-icon>
+                                    </v-btn>
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">

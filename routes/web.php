@@ -16,13 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()){
+        return view('home');
+    }else{
+        return view('auth.login');
+    }
+
 });
 
-
-/* Route::get('/home/empresa', function () {
-    return view('empresa');
-})->middleware('auth'); */
 
 Auth::routes();
 

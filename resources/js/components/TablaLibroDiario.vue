@@ -108,7 +108,6 @@ export default {
             this.$emit("actualizarPartidas", this.LibroDiario); //recivo el evento de formNuevaPartida y lo emito a general junto con el libro diario actual para actualizar la tabla
         },
         actualizarTransaccion(transaccion) {
-            console.log(transaccion);
             this.transaccionEdit = transaccion;
             this.editMode = true;
         },

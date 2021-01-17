@@ -44,7 +44,6 @@ export default {
             axios.get(`/registrosporlibro/${libro.id}`).then(res=>{this.transaccionesLibro = res.data;})
         },
         actualizarLibros(libro){
-            console.log(libro);
           this.detalles =false;
           axios.get('/librod').then(res=>{this.librosUsuario = res.data;})
         }
