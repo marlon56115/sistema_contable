@@ -29,9 +29,10 @@
               <h6 class="card-subtitle mb-2 text-muted">Libro #{{$ld[0]->ldId}}</h6>
               <p class="card-text">
                   <table class="table table-striped">
-                    <thead class="thead-dark">
+                    <thead class="bg-primary text-white">
                       <tr>
-                        <th scope="col">Subcuenta</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Cuenta</th>
                         <th scope="col">Concepto</th>
                         <th scope="col">Debe</th>
                         <th scope="col">Haber</th>
@@ -39,14 +40,16 @@
                     </thead>
                     @foreach ($ld as $item)
                       <tr>
+                        <td scope="row">{{$item->subcuentaId}} </td>
                         <td scope="row">{{$item->subcuenta}} </td>
                         <td>{{$item->concepto}}</td>
                         <td>$ {{$item->debe}}</td>
                         <td>$ {{$item->haber}}</td>
                       </tr>
                       @endforeach
-                          <tr class="table-danger" >
+                          <tr class="bg-primary text-white" >
                         <td scope="row">Total</td>
+                        <td>-</td>
                         <td>-</td>
                         <td>$ {{$totalDebe}}</td>
                         <td>$ {{$totalHaber}}</td>
