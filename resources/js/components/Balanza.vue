@@ -7,19 +7,13 @@
                     <v-select
                         v-model="empresaSelect"
                         :items="empresas"
-                        item-text="nombre"
-                        item-value="id"
+                        placeholder="Selecione una empresa"
                         solo
-                        label="Seleccione una empresa"
+                        return-object
+                        item-text="nombre"
                     >
-                        <template v-slot:item="{ item }">
-                            {{ item.id }} {{ item.nombre }}
-                        </template>
-                        <template v-slot:selection="{ item }">
-                            {{ item.id }} {{ item.nombre }}
-                        </template>
                     </v-select>
-                    <p>Fecha:</p>
+                    <p>Mes:</p>
                     <v-date-picker
                         v-model="fecha"
                         full-width
@@ -31,14 +25,17 @@
                     >
                 </v-col>
                 <v-col>
-                    <v-simple-table>
-                        <template v-slot:default>
-                            <thead>
-                                <tr>
-                                    <th class="text-center" colspan="4">
-                                        Balanzce de Comprobacion de {{ fecha }}
-                                    </th>
-                                </tr>
+                    <div v-if="empresaSelect != null">
+                        <h5 class="text-center">{{ empresaSelect.nombre }}</h5>
+                        <h5 class="text-center">
+                            Balanzce de Comprobacion de {{ fecha }}
+                        </h5>
+                        <h5 class="text-center">
+                            Expresado en dolares de los Estados Unidos de
+                            America
+                        </h5>
+                        <table class="table table-hover mt-3">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th class="text-center">
                                         ID
@@ -61,12 +58,32 @@
                                 >
                                     <td>{{ cuenta.id }}</td>
                                     <td>{{ cuenta.cuenta }}</td>
-                                    <td>{{ cuenta.debe }}</td>
-                                    <td>{{ cuenta.haber }}</td>
+                                    <td>$ {{ cuenta.debe }}</td>
+                                    <td>$ {{ cuenta.haber }}</td>
                                 </tr>
                             </tbody>
-                        </template>
-                    </v-simple-table>
+                            <tfoot
+                                class="grey darken-2 text-white font-weight-black"
+                            >
+                                <tr>
+                                    <td class="text-center" colspan="2">
+                                        Total
+                                    </td>
+                                    <td>$ {{ totalDebe }}</td>
+                                    <td>$ {{ totalHaber }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <v-alert
+                            dense
+                            type="warning"
+                            v-if="totalDebe != totalHaber"
+                        >
+                            El <strong>Debe</strong> no es igual a
+                            <strong>Haber</strong>; verificar las partidas en el
+                            <strong>Libro Diario</strong>.
+                        </v-alert>
+                    </div>
                 </v-col>
             </v-row>
         </v-container>
@@ -79,10 +96,11 @@ export default {
     data: function() {
         return {
             cuentas: [],
-            cuenta: { id: "", cuentaMayor: "", debe: "", haber: "" },
             fecha: new Date().toISOString().substr(0, 7),
             empresas: [],
-            empresaSelect: null
+            empresaSelect: null,
+            totalDebe: 0,
+            totalHaber: 0
         };
     },
     created() {
@@ -98,11 +116,13 @@ export default {
     methods: {
         balanza() {
             this.cuentas = [];
+            this.totalDebe = 0;
+            this.totalHaber = 0;
             var registros = [];
             const params = {
                 month: this.fecha.substring(5, this.fecha.length),
                 year: this.fecha.substring(0, 4),
-                id: this.empresaSelect
+                id: this.empresaSelect.id
             };
             axios.get("/balanza", { params: params }).then(res => {
                 registros = res.data;
@@ -125,6 +145,19 @@ export default {
                             debe: registro.debe,
                             haber: registro.haber
                         });
+                    }
+                });
+                this.cuentas.forEach((registro, index) => {
+                    if (registro.debe > registro.haber) {
+                        registro.debe = registro.debe - registro.haber;
+                        registro.haber = 0;
+                        this.totalDebe = registro.debe;
+                    } else if (registro.debe < registro.haber) {
+                        registro.haber = registro.haber - registro.debe;
+                        registro.debe = 0;
+                        this.totalHaber = registro.haber;
+                    } else {
+                        this.cuentas.splice(index, 1);
                     }
                 });
             });
