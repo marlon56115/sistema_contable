@@ -76,6 +76,7 @@
                         </table>
                         <v-alert
                             dense
+                            icon="mdi-alert"
                             type="warning"
                             v-if="totalDebe != totalHaber"
                         >
