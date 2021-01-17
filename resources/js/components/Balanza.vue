@@ -190,7 +190,12 @@ export default {
                 2.5,
                 "center"
             );
-            doc.autoTable({ html: "#my-table", startY: 4.5 });
+            doc.autoTable({
+                html: "#my-table",
+                startY: 4.5,
+                headStyles: { fillColor: "#263238" },
+                footStyles: { fillColor: "#263238" }
+            });
 
             doc.save(
                 this.empresaSelect.nombre + "_Balanza" + this.fecha + ".pdf"
