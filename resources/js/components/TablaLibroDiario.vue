@@ -26,6 +26,7 @@
       <thead class="thead-dark">
         <tr>
           <th scope="col">Subcuenta</th>
+          <th scope="col">Fecha</th>
           <th scope="col">Debe</th>
           <th scope="col">Haber</th>
           <th scope="col">Accion</th>
@@ -36,7 +37,8 @@
           v-for="transaccion of transaccionesLibro"
           :key="transaccion.transaccion"
         >
-          <th scope="row">{{ transaccion.subcuenta }}</th>
+          <th scope="row"> {{transaccion.cuentaId}} {{ transaccion.subcuenta }}</th>
+          <td> {{transaccion.fecha}} </td>
           <td>${{ transaccion.debe }}</td>
           <td>${{ transaccion.haber }}</td>
           <td>
@@ -62,6 +64,7 @@
       <thead class="thead-dark">
         <tr>
           <th scope="col">Total</th>
+          <th scope="col"></th>
           <th scope="col">${{ totalDebe }}</th>
           <th scope="col">${{ totalHaber }}</th>
           <th scope="col"></th>
