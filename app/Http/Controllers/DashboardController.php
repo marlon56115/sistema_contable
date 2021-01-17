@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuenta;
+use App\Models\Subcuenta;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,7 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return 'hola';
+        //$res = Subcuenta::addSelect(['cuenta'=>Cuenta::select('nombre')->whereColumn('cuenta_id', 'cuentas.id')])->get();
+        $res=Subcuenta::with('cuenta')->get();
+        return $res;
     }
 
     /**

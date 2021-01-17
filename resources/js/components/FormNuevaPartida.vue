@@ -37,16 +37,17 @@
             </template>
           </v-select>
         </div>
-        <div class="col col-3 col-md-6">
+        <div class="col col-3 col-md-4">
           <v-textarea
             rows="1"
             prepend-icon="mdi-playlist-check"
             name="input-7-1"
             label="concepto"
             v-model="transLocal.concepto"
+            height="60"
           ></v-textarea>
         </div>
-        <div class="col col-3 col-md-2">
+        <div class="col col-3 col-md-2 d-flex align-center justify-center">
           <v-text-field
             dense
             label="Debe"
@@ -54,7 +55,7 @@
             prefix="$"
           ></v-text-field>
         </div>
-        <div class="col col-3 col-md-2">
+        <div class="col col-3 col-md-2 d-flex align-center justify-center">
           <v-text-field
             dense
             label="Haber"
@@ -62,7 +63,13 @@
             prefix="$"
           ></v-text-field>
         </div>
-        <div class="col col-12">
+        <div class="col col-3 col-md-2 d-flex align-center justify-center">
+            <v-switch
+            v-model="transLocal.ajuste"
+            label="ajuste"
+            ></v-switch>
+        </div>
+        <div class="col col-12 ">
           <div class="row">
             <div class="col">
               <v-btn
@@ -122,16 +129,17 @@
             </template>
           </v-select>
         </div>
-        <div class="col col-3 col-md-6">
+        <div class="col col-3 col-md-4">
           <v-textarea
             rows="1"
             prepend-icon="mdi-playlist-check"
             name="input-7-1"
             label="concepto"
             v-model="concepto"
+            height="60"
           ></v-textarea>
         </div>
-        <div class="col col-3 col-md-2">
+        <div class="col col-3 col-md-2 d-flex align-center justify-center">
           <v-text-field
             dense
             label="Debe"
@@ -139,16 +147,25 @@
             prefix="$"
           ></v-text-field>
         </div>
-        <div class="col col-3 col-md-2">
+        <div class="col col-3 col-md-2 d-flex align-center justify-center">
           <v-text-field
             dense
             label="Haber"
             v-model="haber"
             prefix="$"
           ></v-text-field>
+
+        </div>
+        <div class="col col-3 col-md-2 d-flex align-center justify-center">
+            <v-switch
+            v-model="ajuste"
+            label="ajuste"
+            ></v-switch>
         </div>
         <div class="col-12">
-          <v-btn class="green" type="submit" block> Agregar </v-btn>
+          <v-btn class="green" type="submit" block
+          :disabled="selectedSubcuenta==undefined || concepto==''"
+          > Agregar </v-btn>
         </div>
       </div>
     </form>
@@ -171,6 +188,7 @@ export default {
       concepto: "",
       debe: 0,
       haber: 0,
+      ajuste:false,
       selectedSubcuenta: undefined,
       localTransaccion: {},
     };
@@ -201,11 +219,14 @@ export default {
         debe: this.debe,
         haber: this.haber,
         concepto: this.concepto,
+        ajuste:this.ajuste
       };
       this.concepto = "";
       this.debe = 0;
       this.haber = 0;
       this.selectedSubcuenta = undefined;
+      this.cuentaSelected=undefined;
+      this.ajuste=false;
       console.log(params);
       axios.post("/registrold", params).then((res) => {
         this.$emit("actualizarPartidas");
@@ -218,6 +239,7 @@ export default {
         debe: partida.debe,
         haber: partida.haber,
         concepto: partida.concepto,
+        ajuste:partida.ajuste
       };
       //vm.transLocal={};
       axios.put(`/registrold/${partida.transaccion}`, params).then((res) => {
@@ -235,6 +257,7 @@ export default {
       this.localTransaccion.concepto = this.transaccionEdit.concepto;
       this.localTransaccion.debe = this.transaccionEdit.debe;
       this.localTransaccion.haber = this.transaccionEdit.haber;
+      this.localTransaccion.ajuste=this.transaccionEdit.ajuste;
       this.localTransaccion.transaccion = this.transaccionEdit.transaccion;
       axios.get(`/subcuentas/${this.localTransaccion.cuentaId}`).then((res) => {
         console.log(res);

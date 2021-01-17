@@ -1,11 +1,11 @@
 <template>
        <div>
            <div class="row">
-               <div class="col col-12 col-md-4">
+               <div class="col col-12 col-md-3">
                    <FormNuevoLibro class="mb-3" @mandarLibro="actualizarLibros"/>
                    <LibroDiario class="mb-2" :librosUsuario="librosUsuario" @realizarAccion="traerPartidas" @eliminarLibro="actualizarLibros"/>
                </div>
-               <div class="col col-12 col-md-8">
+               <div class="col col-12 col-md-9">
                    <TablaLibroDiario :LibroDiario="LibroSelected" v-if="detalles" :transaccionesLibro="transaccionesLibro" :totalDebe="totalDebe" :totalHaber="totalHaber"  @actualizarPartidas="traerPartidas"/>
                </div>
            </div>
