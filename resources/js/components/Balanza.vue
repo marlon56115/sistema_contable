@@ -26,7 +26,9 @@
                 </v-col>
                 <v-col>
                     <div v-if="empresaSelect != null">
-                        <h5 class="text-center">{{ empresaSelect.nombre }}</h5>
+                        <h5 class="text-center">
+                            {{ empresaSelect.nombre }}
+                        </h5>
                         <h5 class="text-center">
                             Balanzce de Comprobacion de {{ fecha }}
                         </h5>
@@ -34,7 +36,15 @@
                             Expresado en dolares de los Estados Unidos de
                             America
                         </h5>
-                        <table class="table table-hover mt-3">
+                        <v-row justify="end" align="center">
+                            Descargar:
+                            <v-btn @click="imprimir" color="red" icon>
+                                <v-icon>
+                                    mdi-file-pdf
+                                </v-icon>
+                            </v-btn>
+                        </v-row>
+                        <table class="table table-hover mt-3" id="my-table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th class="text-center">
@@ -92,6 +102,10 @@
 </template>
 
 <script>
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
+import html2canvas from "html2canvas";
+window.html2canvas = html2canvas;
 export default {
     name: "balanza",
     data: function() {
@@ -163,6 +177,38 @@ export default {
                     registro => registro.haber != registro.debe
                 );
             });
+        },
+        imprimir() {
+            const doc = new jsPDF("p", "cm", "letter");
+            doc.text(
+                [
+                    this.empresaSelect.nombre,
+                    "Balanzce de Comprobacion de " + this.fecha,
+                    "Expresado en dolares de los Estados Unidos de America"
+                ],
+                10.795,
+                2.5,
+                "center"
+            );
+            doc.autoTable({ html: "#my-table", startY: 4.5 });
+
+            doc.save(
+                this.empresaSelect.nombre + "_Balanza" + this.fecha + ".pdf"
+            );
+            /*doc.html(contenido, {
+                html2canvas: {
+                    // insert html2canvas options here, e.g.
+                    width: 5
+                },
+                callback: doc => {
+                    doc.save(
+                        this.empresaSelect.nombre +
+                            "_Balanza" +
+                            this.fecha +
+                            ".pdf"
+                    );
+                }
+            });*/
         }
     }
 };
