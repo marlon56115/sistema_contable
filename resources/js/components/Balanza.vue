@@ -35,16 +35,21 @@
                         <template v-slot:default>
                             <thead>
                                 <tr>
-                                    <th class="text-left">
+                                    <th class="text-center" colspan="4">
+                                        Balanzce de Comprobacion de {{ fecha }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">
                                         ID
                                     </th>
-                                    <th class="text-left">
+                                    <th class="text-center">
                                         Cuenta
                                     </th>
-                                    <th class="text-left">
+                                    <th class="text-center">
                                         Debe
                                     </th>
-                                    <th class="text-left">
+                                    <th class="text-center">
                                         Haber
                                     </th>
                                 </tr>
@@ -92,6 +97,7 @@ export default {
     },
     methods: {
         balanza() {
+            this.cuentas = [];
             var registros = [];
             const params = {
                 month: this.fecha.substring(5, this.fecha.length),
