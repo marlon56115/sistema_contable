@@ -20,7 +20,8 @@
                         type="month"
                         locale="es"
                     ></v-date-picker>
-                    <v-btn @click="balanza" color="blue" dark block
+                    <v-btn @click="balanza" color="blue"  block class="text-light"
+                    :disabled="empresaSelect==null"
                         >Obtener</v-btn
                     >
                 </v-col>
@@ -37,12 +38,17 @@
                             America
                         </h5>
                         <v-row justify="end" align="center">
-                            Descargar:
-                            <v-btn @click="imprimir" color="red" icon>
-                                <v-icon>
-                                    mdi-file-pdf
-                                </v-icon>
-                            </v-btn>
+                            <v-btn
+                            @click="imprimir"
+                            color="red"
+                            class=" white--text mr-3 mb-2"
+                            small
+                        >
+                             Descargar
+                            <v-icon right small>
+                                mdi-file-pdf
+                            </v-icon>
+                        </v-btn>
                         </v-row>
                         <table class="table table-hover mt-3" id="my-table">
                             <thead class="thead-dark">

@@ -16,9 +16,8 @@ class LibroDiarioController extends Controller
     {
        // $librod=LibroDiario::where('user_id',auth()->user()->id)->get();
        return  DB::table('libro_diarios as ld')->join('empresas as e', 'e.id', '=', 'ld.empresa_id')
-       ->join('users as u','u.id','=','ld.user_id')
        ->select('e.nombre','e.rubro','ld.id as id')
-        ->where('u.id',auth()->user()->id)->get();
+        ->orderBy('ld.id','asc')->get();
     }
 
     /**

@@ -12,6 +12,7 @@
             label="Cuenta"
             single-line
             @change="getSubcuentas"
+
           >
             <template v-slot:item="{ item }">
               {{ item.id }} {{ item.nombre }}
@@ -206,9 +207,7 @@ export default {
       } else {
         id = this.cuentaSelected;
       }
-      console.log(id);
       axios.get(`/subcuentas/${id}`).then((res) => {
-        console.log(res);
         this.subcuentas = res.data;
       });
     },
@@ -227,13 +226,11 @@ export default {
       this.selectedSubcuenta = undefined;
       this.cuentaSelected=undefined;
       this.ajuste=false;
-      console.log(params);
       axios.post("/registrold", params).then((res) => {
         this.$emit("actualizarPartidas");
       }); //cuando agrego la partida, emito un evento hacia TablaLibroDiario
     },
     actualizarPartida(partida) {
-      console.log(partida);
       const params = {
         subcuenta: partida.subcuentaId,
         debe: partida.debe,
@@ -260,7 +257,6 @@ export default {
       this.localTransaccion.ajuste=this.transaccionEdit.ajuste;
       this.localTransaccion.transaccion = this.transaccionEdit.transaccion;
       axios.get(`/subcuentas/${this.localTransaccion.cuentaId}`).then((res) => {
-        console.log(res);
         this.subcuentas = res.data;
       });
       return this.localTransaccion;

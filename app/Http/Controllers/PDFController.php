@@ -19,7 +19,7 @@ class PDFController extends Controller
             ->join('registrolds as rld', 'rld.libro_diario_id', '=', 'ld.id')
             ->join('subcuentas as sc', 'sc.id', '=', 'rld.subcuenta_id')
             ->select('ld.id as ldId', 'rld.concepto', 'e.nombre', 'e.rubro', 'ld.id as id', 'rld.id as transaccion', 'rld.debe', 'rld.haber', 'sc.nombre as subcuenta', 'sc.id as subcuentaId')
-            ->where('u.id', auth()->user()->id)->where('ld.id', $id)->get();
+            ->where('u.id', auth()->user()->id)->where('ld.id', $id)->orderBy('sc.id','asc')->get();
 
         if (count($ld) != 0) {
             foreach ($ld as $l) {

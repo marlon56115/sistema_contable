@@ -31,11 +31,10 @@ class RegistroldController extends Controller
         ->where('u.id',auth()->user()->id)->where('ld.id',$id)->get(); */
 
         return  DB::table('libro_diarios as ld')->join('empresas as e', 'e.id', '=', 'ld.empresa_id')
-        ->join('users as u','u.id','=','ld.user_id')
         ->join('registrolds as rld','rld.libro_diario_id','=','ld.id')
         ->join('subcuentas as sc','sc.id','=','rld.subcuenta_id')
         ->select('ld.id as ldId','rld.concepto','e.nombre','e.rubro','ld.id as id','rld.id as transaccion','rld.debe','rld.haber','sc.nombre as subcuenta','sc.id as subcuentaId','sc.cuenta_id as cuentaId','rld.ajuste as ajuste','rld.fecha as fecha')
-        ->where('u.id',auth()->user()->id)->where('ld.id',$id)->get();
+        ->where('ld.id',$id)->orderBy('sc.id','asc')->get();
     }
 
     /**

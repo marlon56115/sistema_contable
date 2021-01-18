@@ -3,13 +3,12 @@
     <form @submit.prevent="guardar">
       <h6>Agregar Nuevo Libro</h6>
       <v-select
-            dense
             v-model="empresaSelect"
             :items="empresas"
             item-text="nombre"
             item-value="id"
             label="Seleccione una empresa"
-            single-line
+            solo
           >
             <template v-slot:item="{ item }">
               {{ item.id }} {{ item.nombre }}
