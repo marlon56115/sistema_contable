@@ -127,6 +127,10 @@ export default {
             totalHaber: 0
         };
     },
+    /**
+     * Metodo para obtener las emprezas disponibles,
+     * con esto se llena el tag del select
+     */
     created() {
         axios
             .get("/empresa")
@@ -138,6 +142,10 @@ export default {
             });
     },
     methods: {
+        /**
+         * Metodo para generar el balance de resultados de una
+         * empresa en una fecha en especifico
+         */
         balanza() {
             this.cuentas = [];
             this.totalDebe = 0;
@@ -147,10 +155,14 @@ export default {
                 month: this.fecha.substring(5, this.fecha.length),
                 year: this.fecha.substring(0, 4),
                 id: this.empresaSelect.id
-            };
+            }; // se llena el objeto que contiene los parametros para traer los registros
             axios.get("/balanza", { params: params }).then(res => {
-                registros = res.data;
+                registros = res.data; // se obtienen todos los registros
                 registros.forEach(registro => {
+                    // se clasifican sus registros de acuerdo a su cuenta de 4 digitos
+                    // si la cuenta de cuatro digitos no existe se agrega al array
+                    //si la cuenta de cuatro digitos ya existe
+                    // se suma a esa misma cuenta el debe y haber de la cuenta de 6 digitos que pertenece a la cuenta de 4 digitos
                     if (
                         this.cuentas.some(
                             cuenta => cuenta.id == registro.subcuenta.id
@@ -171,6 +183,7 @@ export default {
                         });
                     }
                 });
+                // se resta el haber y el debe de las cuentas de 4 digitos ya clasificadas, y se saca su total, si el haber es igual al debe esa cuenta no se toma en cuenta en la sumatoria
                 this.cuentas.forEach((registro, index) => {
                     if (registro.debe > registro.haber) {
                         registro.debe = registro.debe - registro.haber;
@@ -182,14 +195,19 @@ export default {
                         this.totalHaber = this.totalHaber + registro.haber;
                     }
                 });
+                // se eliminan las cuentas con saldo cero, es decir, las cuentas que su debe y su haber es igual
                 this.cuentas = this.cuentas.filter(
                     registro => registro.haber != registro.debe
                 );
             });
         },
+        /**
+         * metodo para generar el pdf de la balanza de resultados
+         */
         imprimir() {
-            const doc = new jsPDF("p", "cm", "letter");
-            doc.text(
+            const doc = new jsPDF("p", "cm", "letter"); // se crea la configuracion del archivo de pdf
+           // se agrega los encabezados de la balanza
+           doc.text(
                 [
                     this.empresaSelect.nombre,
                     "Balanzce de Comprobacion de " + this.fecha,
@@ -199,13 +217,14 @@ export default {
                 2.5,
                 "center"
             );
+            // se genera la tabla de la balanza
             doc.autoTable({
                 html: "#my-table",
                 startY: 4.5,
                 headStyles: { fillColor: "#263238" },
                 footStyles: { fillColor: "#263238" }
             });
-
+            // se guarda el archivo con el nombre de la empresa_Balanza_fecha
             doc.save(
                 this.empresaSelect.nombre + "_Balanza" + this.fecha + ".pdf"
             );
