@@ -2,7 +2,7 @@
     <div id="balanza">
         <v-container>
             <v-row>
-                <v-col cols="3">
+                <v-col cols="12" md="3">
                     <p>Empresa:</p>
                     <v-select
                         v-model="empresaSelect"
@@ -20,13 +20,17 @@
                         type="month"
                         locale="es"
                     ></v-date-picker>
-                    <v-btn @click="balanza" color="blue"  block class="text-light"
-                    :disabled="empresaSelect==null"
+                    <v-btn
+                        @click="balanza"
+                        color="blue"
+                        block
+                        class="text-light"
+                        :disabled="empresaSelect == null"
                         >Obtener</v-btn
                     >
                 </v-col>
-                <v-col>
-                    <div v-if="empresaSelect != null">
+                <v-col cols="12" md="9">
+                    <div v-if="empresaSelect != null" id="canvas">
                         <h5 class="text-center">
                             {{ empresaSelect.nombre }}
                         </h5>
@@ -39,16 +43,16 @@
                         </h5>
                         <v-row justify="end" align="center">
                             <v-btn
-                            @click="imprimir"
-                            color="red"
-                            class=" white--text mr-3 mb-2"
-                            small
-                        >
-                             Descargar
-                            <v-icon right small>
-                                mdi-file-pdf
-                            </v-icon>
-                        </v-btn>
+                                @click="pdf"
+                                color="red"
+                                class=" white--text mr-3 mb-2"
+                                small
+                            >
+                                Descargar
+                                <v-icon right small>
+                                    mdi-file-pdf
+                                </v-icon>
+                            </v-btn>
                         </v-row>
                         <table class="table table-hover mt-3" id="my-table">
                             <thead class="thead-dark">
@@ -111,7 +115,6 @@
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import html2canvas from "html2canvas";
-window.html2canvas = html2canvas;
 export default {
     name: "balanza",
     data: function() {
@@ -206,20 +209,6 @@ export default {
             doc.save(
                 this.empresaSelect.nombre + "_Balanza" + this.fecha + ".pdf"
             );
-            /*doc.html(contenido, {
-                html2canvas: {
-                    // insert html2canvas options here, e.g.
-                    width: 5
-                },
-                callback: doc => {
-                    doc.save(
-                        this.empresaSelect.nombre +
-                            "_Balanza" +
-                            this.fecha +
-                            ".pdf"
-                    );
-                }
-            });*/
         }
     }
 };
