@@ -19,7 +19,7 @@
         </v-select>
 
       <v-btn
-      class="green"
+      class="green text-light"
         block
         type="submit"
         :disabled="empresaSelect == undefined"

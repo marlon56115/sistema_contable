@@ -74,7 +74,7 @@
           <div class="row">
             <div class="col">
               <v-btn
-                class="orange"
+                class="orange text-light"
                 block
                 @click="actualizarPartida(transLocal)"
               >
@@ -82,7 +82,7 @@
               </v-btn>
             </div>
             <div class="col">
-              <v-btn class="red" block @click="cancelarEdicion">
+              <v-btn class="red text-light" block @click="cancelarEdicion">
                 Cancelar
               </v-btn>
             </div>
@@ -164,7 +164,7 @@
             ></v-switch>
         </div>
         <div class="col-12">
-          <v-btn class="green" type="submit" block
+          <v-btn class="green text-light" type="submit" block
           :disabled="selectedSubcuenta==undefined || concepto==''"
           > Agregar </v-btn>
         </div>
