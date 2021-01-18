@@ -63,9 +63,20 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Registrarse!
-                                </button>
+                                <v-btn
+                                color="blue"
+                                class="ma-2 white--text"
+                                type="submit"
+                                style="text-transform: none !important; "
+                                >
+                                Registrarse!
+                                <v-icon
+                                    right
+                                    dark
+                                >
+                                    mdi-account-check
+                                </v-icon>
+                                </v-btn>
                             </div>
                         </div>
                     </form>

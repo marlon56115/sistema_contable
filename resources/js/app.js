@@ -40,7 +40,6 @@ Vue.component(
     "librodiarioview",
     require("./views/LibroDiarioView.vue").default
 );
-Vue.component("empresaview", require("./views/EmpresaView.vue").default);
 Vue.component("vfooter", require("../js/components/Vfooter.vue").default);
 Vue.component("balanza", require("../js/components/Balanza.vue").default);
 
