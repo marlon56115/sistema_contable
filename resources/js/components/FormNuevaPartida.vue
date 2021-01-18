@@ -12,6 +12,7 @@
             label="Cuenta"
             single-line
             @change="getSubcuentas"
+
           >
             <template v-slot:item="{ item }">
               {{ item.id }} {{ item.nombre }}
