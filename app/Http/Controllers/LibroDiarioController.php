@@ -38,9 +38,10 @@ class LibroDiarioController extends Controller
      */
     public function store(Request $request)
     {
-        echo $request->id;
+        //return auth()->user();
         $libro=new LibroDiario();
-        $libro->user_id=auth()->user()->id;
+        //$libro->user_id=auth()->user()->id;
+        $libro->user_id=$request->user_id;
         $libro->empresa_id=$request->id;
         $libro->save();
         return $libro;

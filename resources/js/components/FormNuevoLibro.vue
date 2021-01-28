@@ -51,6 +51,7 @@ export default {
     guardar() {
       const params = { id: this.empresaSelect };
       axios.post("/librod", params).then((res) => {
+          console.log(res.data);
         this.$emit("mandarLibro", res.data);
         this.empresaSelect=undefined;
       });

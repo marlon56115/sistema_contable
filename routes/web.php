@@ -31,9 +31,9 @@ Route::get('/home/{error?}', [App\Http\Controllers\HomeController::class, 'index
 
 Route::resource('/dashboard', App\Http\Controllers\DashboardController::class)->middleware('auth');
 Route::resource('/empresa', App\Http\Controllers\EmpresaController::class)->middleware('auth');
-Route::resource('/librod', App\Http\Controllers\LibroDiarioController::class)->middleware('auth');
+Route::resource('/librod', App\Http\Controllers\LibroDiarioController::class);
 Route::resource('/librom', App\Http\Controllers\LibroMayorController::class)->middleware('auth');
-Route::resource('/registrold', App\Http\Controllers\RegistroldController::class)->middleware('auth');
+Route::resource('/registrold', App\Http\Controllers\RegistroldController::class);
 Route::resource('/registrolm', App\Http\Controllers\RegistrolmController::class)->middleware('auth');
 Route::resource('/cuenta', App\Http\Controllers\CuentaController::class)->middleware('auth');
 Route::resource('/subcuenta', App\Http\Controllers\SubcuentaController::class)->middleware('auth');
@@ -41,7 +41,7 @@ Route::resource('/subcuenta', App\Http\Controllers\SubcuentaController::class)->
 //no se pueden llamar igual que sus rutas originales de resource
 Route::get('/subcuentas/{id?}', [App\Http\Controllers\SubcuentaController::class, 'subcuentas'])->middleware('auth');
 
-Route::get('/registrosporlibro/{id}', [App\Http\Controllers\RegistroldController::class, 'registrosLibro'])->middleware('auth');
+Route::get('/registrosporlibro/{id}', [App\Http\Controllers\RegistroldController::class, 'registrosLibro']);
 
 Route::get('/PDF/report1/{id?}', [App\Http\Controllers\PDFController::class, 'report1'])->middleware('auth');
 
