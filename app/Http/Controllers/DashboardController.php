@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function index()
     {
         //$res = Subcuenta::addSelect(['cuenta'=>Cuenta::select('nombre')->whereColumn('cuenta_id', 'cuentas.id')])->get();
-        $res=Subcuenta::with('cuenta')->get();
+        $res=Subcuenta::with('cuenta')->paginate(3);
         return $res;
     }
 
